@@ -12,10 +12,13 @@
   (display ")")
   (newline))
 
+(define (check-odd-or-even x)
+  (if (odd? x)
+      odd?
+      even?))
+
 (define (same-parity x . y)
-  (filter-list (cons x y) (lambda (m)
-                            (or (and (odd? m) (odd? x))
-                                (and (even? m) (even? x))))))
+  (filter-list (cons x y) (check-odd-or-even x)))
 
 (define (filter-list items filter)
   (cond ((null? items) '())
@@ -24,3 +27,4 @@
 
 (print-list (same-parity 1 2 3 4 5 6 7))
 (print-list (same-parity 2 3 4 5 6 7))
+(print-list (filter-list (list 1 0 2 0 3 0) zero?))
